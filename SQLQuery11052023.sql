@@ -74,13 +74,6 @@ VALUES
 (5,'BANKOG')
 
 
-CREATE TABLE EventSpeaker (
-    EventId INT,
-    SpeakerId INT,
-    PRIMARY KEY (EventId, SpeakerId),
-    FOREIGN KEY (EventId) REFERENCES Event (EventId),
-    FOREIGN KEY (SpeakerId) REFERENCES Speaker (SpeakerId)
-);
 
 
 
