@@ -101,7 +101,7 @@ AS
 BEGIN
     SELECT s.speakerid, s.firstname, COUNT(e.eventid) AS EventCount, SUM(e.DurationInMinutes) AS TotalDuration
     FROM Speaker s
-    JOIN EventSpeaker es ON s.speakerid = es.speakerid
+    JOIN SpeakerEvent es ON s.speakerid = es.speakerid
     JOIN Event e ON es.eventid = e.eventid
     GROUP BY s.speakerid, s.firstname
 END
@@ -114,15 +114,15 @@ BEGIN
     VALUES (@cityname)
 END
 
-SELECT CityId, COUNT(*) AS EventCount
+SELECT cityid, COUNT(*) AS EventCount
 FROM Event
-GROUP BY CityId
+GROUP BY cityid
 HAVING COUNT(*) > 2;
 
 CREATE VIEW EventsLastYear AS
-SELECT e.EventId, e.EventName, c.CityName, COUNT(DISTINCT es.SpeakerId) AS SpeakerCount, DATEDIFF(MINUTE, e.StartDateTime, e.EndDateTime) AS DurationInMinutes
+SELECT e.eventid, e.eventname, c.cityname, COUNT(DISTINCT es.speakerid) AS SpeakerCount, DATEDIFF(MINUTE, e.startdatetime, e.enddatetime) AS DurationInMinutes
 FROM Event e
 JOIN City c ON e.CityId = c.CityId
-JOIN EventSpeaker es ON e.EventId = es.EventId
-WHERE e.StartDateTime >= DATEADD(YEAR, -1, GETDATE())
-GROUP BY e.EventId, e.EventName, c.CityName, DATEDIFF(MINUTE, e.StartDateTime, e.EndDateTime);
+JOIN SpeakerEvent es ON e.eventid = es.eventid
+WHERE e.startdatetime >= DATEADD(YEAR, -1, GETDATE())
+GROUP BY e.eventid, e.eventname, c.cityname, DATEDIFF(MINUTE, e.startdatetime, e.enddatetime);
