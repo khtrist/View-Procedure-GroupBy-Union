@@ -23,6 +23,8 @@ VALUES
 (4, 'UK ECONOMY', '2021-03-10 00:00:00', '2021-05-11 00:00:00', 2),
 (5, 'ENGLISH POLITIC', '2020-04-10 00:00:00', '2021-05-11 00:00:00', 1);
 
+GO
+
 CREATE TABLE Speaker (
     speakerid INT IDENTITY PRIMARY KEY,
     firstname NVARCHAR(50),
@@ -47,6 +49,9 @@ CREATE TABLE [Date] (
     datevalue DATE
 );
 
+GO
+
+
 INSERT INTO [Date] (dateid,datevalue) 
 VALUES 
 (1,'2022-01-01'),
@@ -58,7 +63,7 @@ VALUES
 (7,'2021-03-10'),
 (8,'2020-12-10')
 
-
+GO
 
 
 CREATE TABLE City (
@@ -74,7 +79,7 @@ VALUES
 (5,'BANKOG')
 
 
-
+GO
 
 
 CREATE TABLE SpeakerEvent (
