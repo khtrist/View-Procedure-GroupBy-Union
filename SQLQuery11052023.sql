@@ -91,25 +91,7 @@ CREATE TABLE SpeakerEvent (
 );
 
 
-SELECT e.eventid, e.eventname, c.cityname, COUNT(DISTINCT s.speakerid) AS NumSpeakers, DATEDIFF(MINUTE, e.startdatetime, e.enddatetime) AS DurationMinutes
-FROM Event e
-INNER JOIN City c ON e.cityid = c.cityid
-LEFT JOIN SpeakerEvent se ON e.eventid = se.eventid
-LEFT JOIN Speaker s ON se.speakerid = s.speakerid
-GROUP BY e.eventid, e.eventname, c.cityname, e.startdatetime, e.enddatetime;
 
-
-
-
-CREATE PROCEDURE SpeakerEventsDuration
-AS
-BEGIN
-    SELECT s.speakerid, s.firstname, COUNT(e.eventid) AS EventCount, SUM(e.DurationInMinutes) AS TotalDuration
-    FROM Speaker s
-    JOIN SpeakerEvent es ON s.speakerid = es.speakerid
-    JOIN Event e ON es.eventid = e.eventid
-    GROUP BY s.speakerid, s.firstname
-END
 
 CREATE PROCEDURE AddCity
     @cityname NVARCHAR(50)
